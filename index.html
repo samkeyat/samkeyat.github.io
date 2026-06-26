@@ -621,6 +621,10 @@ footer {
   font-family: 'DM Mono', monospace; font-size: 0.76rem;
   color: var(--sky); display: block; margin-bottom: 3px;
 }
+.dp-varsym {
+  font-size: 1rem; color: var(--sky);
+  display: block; margin-bottom: 3px; line-height: 1.5;
+}
 .dp-varname {
   font-size: 0.68rem; font-weight: 600; letter-spacing: 0.05em;
   text-transform: uppercase; color: var(--fade); margin-bottom: 3px;
@@ -1134,17 +1138,17 @@ footer {
               <div class="dp-label">1. Mean state sequential update</div>
               <div class="dp-eq">\[\bar{x}_a = \bar{x}_f + \Delta x\]</div>
               <div class="dp-termcard">
-                <div class="dp-termrow"><code>\(\bar{x}_f\)</code><span>ensemble-mean forecast (prior)</span></div>
-                <div class="dp-termrow"><code>\(\bar{x}_a\)</code><span>ensemble-mean analysis (posterior)</span></div>
-                <div class="dp-termrow"><code>\(\Delta x\)</code><span>analysis increment — how much state is corrected</span></div>
+                <div class="dp-termrow"><span class="dp-varsym">\(\bar{x}_f\)</span><span>ensemble-mean forecast (prior)</span></div>
+                <div class="dp-termrow"><span class="dp-varsym">\(\bar{x}_a\)</span><span>ensemble-mean analysis (posterior)</span></div>
+                <div class="dp-termrow"><span class="dp-varsym">\(\Delta x\)</span><span>analysis increment — how much state is corrected</span></div>
               </div>
               <div class="dp-label" style="margin-top:14px;">3. Full mean update formula</div>
               <div class="dp-eq">\[\bar{x}_a = \bar{x}_f + (\alpha\cdot\beta)\!\left(\frac{\lambda'\sigma_f^2}{\sigma_o^2+\lambda'\sigma_f^2}\right)\!\left(y_o - h(x)\right)\]</div>
               <div class="dp-label" style="margin-top:14px;">4. Innovation: \((y_o - h(x))\)</div>
               <div class="dp-termcard">
-                <div class="dp-termrow"><code>\(y_o\)</code><span>actual GPS-PWV observation</span></div>
-                <div class="dp-termrow"><code>\(h(x)\)</code><span>expected observation from the model</span></div>
-                <div class="dp-termrow"><code>\(y_f = h(x_f)\)</code><span>ensemble-mean expected observation</span></div>
+                <div class="dp-termrow"><span class="dp-varsym">\(y_o\)</span><span>actual GPS-PWV observation</span></div>
+                <div class="dp-termrow"><span class="dp-varsym">\(h(x)\)</span><span>expected observation from the model</span></div>
+                <div class="dp-termrow"><span class="dp-varsym">\(y_f = h(x_f)\)</span><span>ensemble-mean expected observation</span></div>
               </div>
               <div class="dp-note">Positive → model too dry · Negative → model too moist. This is the <strong>error signal</strong> that drives the update.</div>
             </div>
@@ -1158,11 +1162,11 @@ footer {
             <div>
               <div class="dp-label">5. Forward operator h(x)</div>
               <div class="dp-eq">\[h(x)=\frac{1}{\rho_{h_2o}g}\sum_{k=1}^{n_k-1}\frac{1}{2}(Q_k+Q_{k+1})(P_k-P_{k+1})\]</div>
-              <div class="dp-termcard"><div class="dp-termrow"><code>\(Q_k\)</code><span>humidity at level \(k\)</span></div><div class="dp-termrow"><code>\(P_k\)</code><span>pressure at level \(k\)</span></div></div>
+              <div class="dp-termcard"><div class="dp-termrow"><span class="dp-varsym">\(Q_k\)</span><span>humidity at level \(k\)</span></div><div class="dp-termrow"><span class="dp-varsym">\(P_k\)</span><span>pressure at level \(k\)</span></div></div>
               <div class="dp-note">Vertically integrates specific humidity → PWV. Values <strong>bilinearly interpolated</strong> to observation location.</div>
               <div class="dp-label" style="margin-top:14px;">6. Weighted innovation term</div>
               <div class="dp-eq">\[\frac{\lambda'\sigma_f^2}{\sigma_o^2+\lambda'\sigma_f^2}\]</div>
-              <div class="dp-termcard"><div class="dp-termrow"><code>\(\sigma_f^2\)</code><span>prior ensemble variance</span></div><div class="dp-termrow"><code>\(\sigma_o^2\)</code><span>observation error variance</span></div><div class="dp-termrow"><code>\(\lambda'\)</code><span>inflation-adjusted factor</span></div></div>
+              <div class="dp-termcard"><div class="dp-termrow"><span class="dp-varsym">\(\sigma_f^2\)</span><span>prior ensemble variance</span></div><div class="dp-termrow"><span class="dp-varsym">\(\sigma_o^2\)</span><span>observation error variance</span></div><div class="dp-termrow"><span class="dp-varsym">\(\lambda'\)</span><span>inflation-adjusted factor</span></div></div>
               <div class="dp-note">\(\sigma_f^2 \gg \sigma_o^2\) → large update · \(\sigma_o^2 \gg \sigma_f^2\) → small update. The <strong>Kalman weighting</strong>.</div>
             </div>
             <div>
@@ -1216,20 +1220,20 @@ footer {
             <div>
               <div class="dp-label">Basic ensemble and states</div>
               <div class="dp-vargrid" style="grid-template-columns:1fr;">
-                <div class="dp-varcard"><code>\(x^\text{ens}\)</code><div class="dp-varname">Ensemble</div><div class="dp-vardesc">Collection of model state realizations representing atmospheric uncertainty.</div></div>
-                <div class="dp-varcard"><code>\(x_f\)</code><div class="dp-varname">Forecast state (prior)</div><div class="dp-vardesc">Model state before assimilating the new observation.</div></div>
-                <div class="dp-varcard"><code>\(x_a\)</code><div class="dp-varname">Analysis state (posterior)</div><div class="dp-vardesc">Updated model state after assimilation.</div></div>
-                <div class="dp-varcard"><code>\(\bar{x}_f,\;\bar{x}_a\)</code><div class="dp-varname">Ensemble mean</div><div class="dp-vardesc">Average of all members. \(\bar{x}_f = \frac{1}{n_j}\sum_j x_f^j\)</div></div>
-                <div class="dp-varcard"><code>\(\sigma_f^2\)</code><div class="dp-varname">Ensemble covariance</div><div class="dp-vardesc">Variance of ensemble around its mean — measures spread and uncertainty.</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(x^\text{ens}\)</span><div class="dp-varname">Ensemble</div><div class="dp-vardesc">Collection of model state realizations representing atmospheric uncertainty.</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(x_f\)</span><div class="dp-varname">Forecast state (prior)</div><div class="dp-vardesc">Model state before assimilating the new observation.</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(x_a\)</span><div class="dp-varname">Analysis state (posterior)</div><div class="dp-vardesc">Updated model state after assimilation.</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(\bar{x}_f,\;\bar{x}_a\)</span><div class="dp-varname">Ensemble mean</div><div class="dp-vardesc">Average of all members. \(\bar{x}_f = \frac{1}{n_j}\sum_j x_f^j\)</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(\sigma_f^2\)</span><div class="dp-varname">Ensemble covariance</div><div class="dp-vardesc">Variance of ensemble around its mean — measures spread and uncertainty.</div></div>
               </div>
             </div>
             <div>
               <div class="dp-label">Observations and innovations</div>
               <div class="dp-vargrid" style="grid-template-columns:1fr;">
-                <div class="dp-varcard"><code>\(y_o\)</code><div class="dp-varname">Observation</div><div class="dp-vardesc">Measured GPS-PWV with known error variance \(\sigma_o^2\).</div></div>
-                <div class="dp-varcard"><code>\(y_f = h(x_f)\)</code><div class="dp-varname">Expected observation</div><div class="dp-vardesc">Model's estimate via forward operator applied to the forecast state.</div></div>
-                <div class="dp-varcard"><code>\(\Delta y = y_o - y_f\)</code><div class="dp-varname">Innovation</div><div class="dp-vardesc">Difference between actual and model-expected observation — what the filter corrects.</div></div>
-                <div class="dp-varcard"><code>weighted \(\Delta y\)</code><div class="dp-varname">Weighted innovation</div><div class="dp-vardesc">Innovation scaled by error variances and localization/inflation factors.</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(y_o\)</span><div class="dp-varname">Observation</div><div class="dp-vardesc">Measured GPS-PWV with known error variance \(\sigma_o^2\).</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(y_f = h(x_f)\)</span><div class="dp-varname">Expected observation</div><div class="dp-vardesc">Model's estimate via forward operator applied to the forecast state.</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(\Delta y = y_o - y_f\)</span><div class="dp-varname">Innovation</div><div class="dp-vardesc">Difference between actual and model-expected observation — what the filter corrects.</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">weighted \(\Delta y\)</span><div class="dp-varname">Weighted innovation</div><div class="dp-vardesc">Innovation scaled by error variances and localization/inflation factors.</div></div>
               </div>
             </div>
           </div>
@@ -1242,21 +1246,21 @@ footer {
             <div>
               <div class="dp-label">Analysis increments and member updates</div>
               <div class="dp-vargrid" style="grid-template-columns:1fr;">
-                <div class="dp-varcard"><code>\(\Delta x = x_a - x_f\)</code><div class="dp-varname">State increment</div><div class="dp-vardesc">Change applied to the state by assimilation.</div></div>
-                <div class="dp-varcard"><code>\(\Delta y_a\)</code><div class="dp-varname">Analysis increment in obs space</div><div class="dp-vardesc">Change in each member's expected observation during update.</div></div>
-                <div class="dp-varcard"><code>\(x_a^j\)</code><div class="dp-varname">Member update</div><div class="dp-eq" style="margin:6px 0;font-size:0.82rem;">\[x_a^j = x_f^j + (\alpha\beta)\,\Delta y_a^j\]</div><div class="dp-vardesc">Updated state for ensemble member \(j\).</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(\Delta x = x_a - x_f\)</span><div class="dp-varname">State increment</div><div class="dp-vardesc">Change applied to the state by assimilation.</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(\Delta y_a\)</span><div class="dp-varname">Analysis increment in obs space</div><div class="dp-vardesc">Change in each member's expected observation during update.</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(x_a^j\)</span><div class="dp-varname">Member update</div><div class="dp-eq" style="margin:6px 0;font-size:0.82rem;">\[x_a^j = x_f^j + (\alpha\beta)\,\Delta y_a^j\]</div><div class="dp-vardesc">Updated state for ensemble member \(j\).</div></div>
               </div>
               <div class="dp-label" style="margin-top:14px;">Covariances and sensitivities</div>
               <div class="dp-vargrid" style="grid-template-columns:1fr;">
-                <div class="dp-varcard"><code>\(\operatorname{Cov}(x_f,y_f)\)</code><div class="dp-varname">State-obs covariance</div><div class="dp-vardesc">Links model space and observation space across the ensemble.</div></div>
-                <div class="dp-varcard"><code>\(\operatorname{Var}(y_f)\)</code><div class="dp-varname">Expected-obs variance</div><div class="dp-vardesc">Part of the Kalman gain denominator.</div></div>
-                <div class="dp-varcard"><code>\(\beta = \operatorname{Cov}/\operatorname{Var}\)</code><div class="dp-varname">Ensemble-based sensitivity</div><div class="dp-vardesc">How much a state variable should respond to the observed innovation.</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(\operatorname{Cov}(x_f,y_f)\)</span><div class="dp-varname">State-obs covariance</div><div class="dp-vardesc">Links model space and observation space across the ensemble.</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(\operatorname{Var}(y_f)\)</span><div class="dp-varname">Expected-obs variance</div><div class="dp-vardesc">Part of the Kalman gain denominator.</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(\beta = \operatorname{Cov}/\operatorname{Var}\)</span><div class="dp-varname">Ensemble-based sensitivity</div><div class="dp-vardesc">How much a state variable should respond to the observed innovation.</div></div>
               </div>
             </div>
             <div>
               <div class="dp-label">Forward operator and variables</div>
               <div class="dp-vargrid" style="grid-template-columns:1fr;">
-                <div class="dp-varcard"><code>\(h(x)\)</code><div class="dp-varname">Forward operator</div><div class="dp-vardesc">Maps model state → observation space. Converts 3D water-vapor fields and pressure to PWV via vertical integral.</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(h(x)\)</span><div class="dp-varname">Forward operator</div><div class="dp-vardesc">Maps model state → observation space. Converts 3D water-vapor fields and pressure to PWV via vertical integral.</div></div>
                 <div class="dp-varcard"><code>Obs ~ PWV</code><div class="dp-varname">GPS-PWV observation</div><div class="dp-vardesc">Total column precipitable water — the quantity being assimilated.</div></div>
                 <div class="dp-varcard"><code>T, U, V, W, Q, PH, MU, …</code><div class="dp-varname">Model state variables</div><div class="dp-vardesc">Temperature, wind components, water vapor mixing ratio, geopotential, and others composing \(x^\text{ens}\).</div></div>
               </div>
@@ -1271,14 +1275,14 @@ footer {
             <div>
               <div class="dp-label">Localization</div>
               <div class="dp-vargrid" style="grid-template-columns:1fr;">
-                <div class="dp-varcard"><code>\(z\)</code><div class="dp-varname">Localization distance</div><div class="dp-eq" style="margin:6px 0;font-size:0.82rem;">\[z=\sqrt{|horiz|^2+|vert|^2}\]</div><div class="dp-vardesc">Horizontal + vertical separation between observation and state (radians).</div></div>
-                <div class="dp-varcard"><code>\(\alpha(z,c)\)</code><div class="dp-varname">Localization function</div><div class="dp-vardesc">Gaspari–Cohn taper that reduces observation influence with distance, going to zero beyond \(2c\).</div></div>
-                <div class="dp-varcard"><code>\(c\)</code><div class="dp-varname">Radius parameter</div><div class="dp-vardesc">Cutoff controlling how far observations influence the state.</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(z\)</span><div class="dp-varname">Localization distance</div><div class="dp-eq" style="margin:6px 0;font-size:0.82rem;">\[z=\sqrt{|horiz|^2+|vert|^2}\]</div><div class="dp-vardesc">Horizontal + vertical separation between observation and state (radians).</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(\alpha(z,c)\)</span><div class="dp-varname">Localization function</div><div class="dp-vardesc">Gaspari–Cohn taper that reduces observation influence with distance, going to zero beyond \(2c\).</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(c\)</span><div class="dp-varname">Radius parameter</div><div class="dp-vardesc">Cutoff controlling how far observations influence the state.</div></div>
               </div>
               <div class="dp-label" style="margin-top:14px;">Inflation</div>
               <div class="dp-vargrid" style="grid-template-columns:1fr;">
-                <div class="dp-varcard"><code>\(\lambda\)</code><div class="dp-varname">Inflation factor</div><div class="dp-eq" style="margin:6px 0;font-size:0.82rem;">\[\lambda=\frac{(y_o-y_f)^2}{\sigma_o^2+\sigma_f^2}\]</div><div class="dp-vardesc">Inflates prior variance to counteract ensemble under-dispersion.</div></div>
-                <div class="dp-varcard"><code>\(\lambda'\)</code><div class="dp-varname">Modified inflation</div><div class="dp-eq" style="margin:6px 0;font-size:0.82rem;">\[\lambda'=(1-\sqrt{\lambda})^2\]</div><div class="dp-vardesc">Scales \(\sigma_f^2\) to \(\lambda'\sigma_f^2\) for smoother, more stable inflation.</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(\lambda\)</span><div class="dp-varname">Inflation factor</div><div class="dp-eq" style="margin:6px 0;font-size:0.82rem;">\[\lambda=\frac{(y_o-y_f)^2}{\sigma_o^2+\sigma_f^2}\]</div><div class="dp-vardesc">Inflates prior variance to counteract ensemble under-dispersion.</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(\lambda'\)</span><div class="dp-varname">Modified inflation</div><div class="dp-eq" style="margin:6px 0;font-size:0.82rem;">\[\lambda'=(1-\sqrt{\lambda})^2\]</div><div class="dp-vardesc">Scales \(\sigma_f^2\) to \(\lambda'\sigma_f^2\) for smoother, more stable inflation.</div></div>
                 <div class="dp-varcard"><code>prior inflation</code><div class="dp-varname">Application of \(\lambda'\)</div><div class="dp-vardesc">Applied to the forecast ensemble before assimilation. Often spatially varying and Gaussian.</div></div>
               </div>
             </div>
@@ -1286,8 +1290,8 @@ footer {
               <div class="dp-label">EAKF-specific details</div>
               <div class="dp-vargrid" style="grid-template-columns:1fr;">
                 <div class="dp-varcard"><code>EAKF</code><div class="dp-varname">Ensemble Adjustment Kalman Filter</div><div class="dp-vardesc">Deterministic ensemble filter that adjusts members so the updated ensemble exactly matches the Kalman mean and variance. No perturbed observations needed.</div></div>
-                <div class="dp-varcard"><code>\(\bar{y}_a\)</code><div class="dp-varname">Posterior mean expected obs</div><div class="dp-vardesc">Mean expected observation after assimilation, using posterior variance combining \(y_f\) and \(y_o\) with precision weights.</div></div>
-                <div class="dp-varcard"><code>\(\sigma_a^2\)</code><div class="dp-varname">Posterior variance</div><div class="dp-eq" style="margin:6px 0;font-size:0.82rem;">\[\sigma_a^2=\left[\sigma_f^{\prime -2}+\sigma_o^{-2}\right]^{-1}\]</div><div class="dp-vardesc">Updated variance in observation space — always smaller than both prior and observation variances.</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(\bar{y}_a\)</span><div class="dp-varname">Posterior mean expected obs</div><div class="dp-vardesc">Mean expected observation after assimilation, using posterior variance combining \(y_f\) and \(y_o\) with precision weights.</div></div>
+                <div class="dp-varcard"><span class="dp-varsym">\(\sigma_a^2\)</span><div class="dp-varname">Posterior variance</div><div class="dp-eq" style="margin:6px 0;font-size:0.82rem;">\[\sigma_a^2=\left[\sigma_f^{\prime -2}+\sigma_o^{-2}\right]^{-1}\]</div><div class="dp-vardesc">Updated variance in observation space — always smaller than both prior and observation variances.</div></div>
               </div>
               <div class="dp-note" style="margin-top:14px;">The EAKF is the filter implemented in DART for deterministic ensemble assimilation. These equations explain how DART updates the WRF ensemble given GPS-PWV observations.</div>
             </div>
